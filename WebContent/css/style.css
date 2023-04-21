@@ -1,0 +1,340 @@
+@charset "UTF-8";
+header {
+	text-align: center;
+	font-family: Arial Black;
+}
+
+
+/*tabの形状*/
+.tab{
+  display: flex;
+  flex-wrap: wrap;
+}
+.tab li a{
+  display: block;
+  background:#ddd;
+  margin:0 2px;
+  padding:10px 10px;
+}
+/*liにactiveクラスがついた時の形状*/
+.tab li.active a{
+  background:#fff;
+}
+
+
+/*エリアの表示非表示と形状*/
+.area {
+  display: none;/*はじめは非表示*/
+  opacity: 0;/*透過0*/
+  background: #fff;
+  padding:20px 20px;
+}
+
+/*areaにis-activeというクラスがついた時の形状*/
+.area.is-active {
+    display: block;/*表示*/
+    animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes displayAnime{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+  background:#eee;
+}
+ul{
+  list-style:none;
+}
+
+a{
+  color:#333;
+  text-decoration: none;
+}
+
+.wrapper{
+  width:100%;
+  max-width: 960px;
+  margin:30px auto;
+    background:#fefefe;
+}
+
+.area h2{
+  font-size:1.3rem;
+  margin:0 0 20px 10px;
+}
+
+.area li{
+  padding: 10px; 
+  border-bottom: 1px solid #ddd;
+}
+/* 自己紹介サイト*/
+ul.game img{
+	size: 50%;
+}
+ul.tab {
+	list-style: none;
+}
+ul.tab li{
+	width:25%;
+	text-align: center;
+}
+
+/*スライド */
+/*リンクの形状*/
+#page-top a{
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	background:#942D2F;
+	border-radius: 5px;
+	width: 60px;
+	height: 60px;
+	color: #fff;
+	text-align: center;
+	text-transform: uppercase; 
+	text-decoration: none;
+	font-size:0.6rem;
+	transition:all 0.3s;
+}
+
+#page-top a:hover{
+	background: #777;
+}
+
+/*リンクを右下に固定*/
+#page-top {
+	position: fixed;
+	right: 10px;
+	bottom:10px;
+	z-index: 2;
+    /*はじめは非表示*/
+	opacity: 0;
+	transform: translateX(100px);
+}
+
+/*　左の動き　*/
+
+#page-top.LeftMove{
+	animation: LeftAnime 0.5s forwards;
+}
+
+@keyframes LeftAnime{
+  from {
+    opacity: 0;
+	transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+	transform: translateX(0);
+  }
+}
+
+/*　右の動き　*/
+
+#page-top.RightMove{
+	animation: RightAnime 0.5s forwards;
+}
+@keyframes RightAnime{
+  from {
+  	opacity: 1;
+	transform: translateX(0);
+  }
+  to {
+  	opacity: 1;
+	transform: translateX(100px);
+  }
+}
+
+/*========= body背景色の変化CSS ===============*/
+
+ body{
+  animation: bgchange 10s ease infinite;/*変化の時間を変更したい場合は20sの部分を好きな時間に変更*/
+}
+
+@keyframes bgchange{
+      0%   {background:#add8e6;}/*変化させたい色*/
+      25%  {background:#87ceeb;}/*変化させたい色*/
+      50%  {background:#87cefa;}/*変化させたい色*/
+      75%  {background:#87cefa;}/*変化させたい色*/
+      90%  {background:#87ceed;}/*変化させたい色*/
+      100% {background:#add8e6;}/*変化させたい色*/
+ }
+ /*画像変化*/
+ ul.tab li{
+	list-style:none;
+	width:25%;
+	float:left;
+ }
+ 
+ 
+/*画像が透明になるやつ*/
+.gazo img{
+	opacity:1;
+	transition: .2s ease-in-out;
+}
+.gazo a:hover img{
+	opacity: 0.7;
+}
+
+/* 文字の下に棒出るやつ*/
+
+.tab li a{
+    /*線の基点とするためrelativeを指定*/
+	position: relative;
+}
+
+.tab li.current a,
+.tab li a:hover{
+	color:#0481A2;
+}
+
+.tab li a::after {
+    content: '';
+    /*絶対配置で線の位置を決める*/
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    /*線の形状*/
+    width: 80%;
+    height: 2px;
+    background:#0481A2;
+    /*アニメーションの指定*/
+    transition: all .3s;
+    transform: scale(0, 1);/*X方向0、Y方向1*/
+    transform-origin: center top;/*上部中央基点*/
+}
+
+/*現在地とhoverの設定*/
+.tab li.current a::after,
+.tab li a:hover::after {
+    transform: scale(1, 1);/*X方向にスケール拡大*/
+}
+
+
+h1{
+	color: #f6ad49;
+}
+
+h3{
+	margin: 1px 1px;
+}
+
+
+/*　ロード画面*/
+
+.loader-bg {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background-color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.loader {
+  color: #ffffff;
+  font-size: 90px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  margin: 72px auto;
+  position: relative;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+  animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+}
+@-webkit-keyframes load6 {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+@keyframes load6 {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+@-webkit-keyframes round {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes round {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/*　文字が出てくるやつ */
+
+.tab{
+    /*コレ*/display:flex;
+    /*コレ*/flex-wrap: nowrap;
+    padding:0;
+    list-style:none;
+}
+.tab li{
+    /*コレ*/width:100%;
+    padding: 10px;
+}
